@@ -1,10 +1,10 @@
-![logo](docs/assets/logo.svg)
+# 🔦 sdfuse
 
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Godot Engine](https://img.shields.io/badge/Godot-4.x-blue.svg)](https://godotengine.org/) [![](https://img.shields.io/badge/%20%F0%9F%94%A6%20addon-sdfuse-blueviolet)](https://github.com/bitbrain/sdfuse)
 
 ---
 
-**SDFuse is a powerful addon for Godot Engine that enables infinite 2D lighting with realistic shadows using Signed Distance Fields (SDF).** Create stunning lighting effects with soft and hard shadows, directional light fans, and camera-aware rendering that scales beautifully with your game world.
+**SDFuse is an addon for Godot Engine 4.x that enables infinite 2D lighting with realistic shadows using Signed Distance Fields (SDF).** Create stunning lighting effects with soft and hard shadows, directional light fans, and camera-aware rendering that scales beautifully with your game world.
 
 Using advanced SDF-based ray marching techniques, SDFuse delivers high-quality lighting that responds dynamically to your scene geometry, making it perfect for atmospheric 2D games, top-down adventures, and any project requiring sophisticated lighting effects.
 
