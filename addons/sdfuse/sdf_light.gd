@@ -18,6 +18,10 @@ class_name SDFLight extends Node2D
 	set(v):
 		_data["fan_ang"] = v
 		fan_angle = v
+@export var energy:float = 1.0:
+	set(v):
+		_data["energy"] = v
+		energy = v
 
 
 var _data = {}
@@ -30,6 +34,7 @@ func _ready() -> void:
 	_data["col"] = color
 	_data["ang"] = angle
 	_data["fan_ang"] = fan_angle
+	_data["energy"] = energy
 
 
 func _enter_tree() -> void:

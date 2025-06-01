@@ -31,6 +31,8 @@ uniform float light_ang[LIGHT_N];
 // Angle of the light fan to the left and right in radians.
 // Value greater than PI: no fan.
 uniform float light_fan_ang[LIGHT_N];
+// Energy multiplier for light intensity
+uniform float light_energy[LIGHT_N];
 
 // Camera zoom and angle
 uniform float zoom;
@@ -129,7 +131,7 @@ void fragment() {
 								wall_soft = min(1.0, wall_soft * 2.0);
 								
 								// extra light on wall
-								col_accum += light_col[l].rgb * fade * wall_soft;
+								col_accum += light_col[l].rgb * light_energy[l] * fade * wall_soft;
 							}
 							
 							// special case:
@@ -143,16 +145,16 @@ void fragment() {
 									float hard_blend = temp_l_d / (soft_limit - hard_limit);
 									hard_blend = 1.0 - hard_blend;
 									float counter_soft = (1.0 - soft) * hard_blend;
-									col_accum += light_col[l].rgb * fade * (soft + counter_soft);
+									col_accum += light_col[l].rgb * light_energy[l] * fade * (soft + counter_soft);
 								} else {
-									col_accum += light_col[l].rgb * fade * ang_soft;
+									col_accum += light_col[l].rgb * light_energy[l] * fade * ang_soft;
 								}
 							// default:
 							// Light is soft_limit or more pixels away from occluders
 							// soft shadow
 							} else {
 								soft = min(soft, ang_soft);
-								col_accum += light_col[l].rgb * fade * soft;
+								col_accum += light_col[l].rgb * light_energy[l] * fade * soft;
 							}
 							
 							// ready, out

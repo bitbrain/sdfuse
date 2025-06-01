@@ -117,6 +117,7 @@ The main light component that can be added to any node in your scene.
 - `color: Color` - Light color and intensity (default: Color.WHITE)
 - `angle: float` - Light direction in radians (default: 0.0)
 - `fan_angle: float` - Light cone angle in radians. Use TAU for omnidirectional (default: TAU)
+- `energy: float` - Light intensity multiplier. Values > 1.0 create brighter lights (default: 1.0)
 
 ### Usage
 
@@ -127,6 +128,18 @@ spotlight.range = 400
 spotlight.color = Color.RED
 spotlight.angle = 0.0  # Point right
 spotlight.fan_angle = PI * 0.25  # 45-degree cone
+
+# Create a super bright light with energy > 1
+var bright_light = SDFLight.new()
+bright_light.range = 600
+bright_light.color = Color.WHITE
+bright_light.energy = 2.5  # 2.5x brighter than normal
+
+# Create a dim ambient light
+var ambient = SDFLight.new()
+ambient.range = 800
+ambient.color = Color.BLUE
+ambient.energy = 0.3  # 30% of normal intensity
 ```
 
 ## SDFCanvas
@@ -168,6 +181,9 @@ func _process(delta):
     
     # Pulsing light range
     pulse_light.range = 300 + sin(Time.get_time() * 2.0) * 100
+    
+    # Pulsing light energy for dramatic effect
+    dramatic_light.energy = 1.0 + sin(Time.get_time() * 3.0) * 1.5  # Energy from 0.5 to 2.5
 ```
 
 ## Multiple Light Types
