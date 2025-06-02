@@ -21,7 +21,7 @@ const float WALL_EDGE = 8.0;
 
 // Number of currently active lights
 uniform int light_n = 0;
-// Global positions of the lights 
+// Global positions of the lights
 uniform vec2 light_pos[LIGHT_N];
 uniform vec4 light_col[LIGHT_N];
 // Range of the lights
@@ -41,6 +41,8 @@ uniform float rotation;
 // (level.get_global_transform_with_canvas())
 uniform mat4 comp_mat;
 
+uniform vec4 ambient_modulate;
+
 // Position of the pixel (see vertex shader)
 varying vec2 pos;
 
@@ -57,37 +59,37 @@ float difference(float src, float dst) {
 
 
 void fragment() {
-	
+
 	float wall_edge = WALL_EDGE * zoom;
 	float soft_limit = SOFT_LIMIT * zoom;
 	float hard_limit = HARD_LIMIT * zoom;
-	
-	vec3 col_accum = vec3(0.0, 0.0, 0.0);
+
+	vec4 col_accum = ambient_modulate;
 	vec2 at = screen_uv_to_sdf(SCREEN_UV);
-	
+
 	int l = 0;
 	while(l < light_n) {
-		
+
 		// light range
 		float max_dist = light_rng[l] * zoom;
-		
+
 		// light position
 		vec2 l_pos = light_pos[l];
 		l_pos = (comp_mat * vec4(l_pos, 0.0, 1.0)).xy;
-		
+
 		// Signed Distance Value at light position
 		float l_d = texture_sdf(l_pos);
-		
+
 		// Lights are ignored if they fall below this distance to the next occluder
 		if (l_d > zoom) {
-			
+
 			// distance from pixel to light
 			vec2 diff = l_pos - pos;
 			float dist = length(diff);
-			
+
 			// pixel is irgnored if it is out of light range
 			if (dist <= max_dist) {
-				
+
 				vec2 dir = normalize(diff);
 				float ang = light_ang[l];
 				float ang_fan = light_fan_ang[l];
@@ -98,7 +100,7 @@ void fragment() {
 				}
 				// pixel is ignored if it lies outside the light fan
 				if (diff_ang >= 0.0) {
-					
+
 					float soft = 1.0;
 					float work_dist = 0.0001;
 					float remain_dist = dist;
@@ -107,21 +109,21 @@ void fragment() {
 					int inside = -1;
 					float indepth = 0.0;
 					for (int i = 0; i < STEP_MAX; i ++) {
-						
+
 						// ray has reached light
 						if (work_dist >= dist) {
-							
+
 							// light intensity decreases quadratically with distance
 							float fade = 1.0 - min(1.0, dist / max_dist);
 							fade = pow(fade, 2.0);
-							
+
 							// soft light fan edge
 							float ang_soft = 1.0;
 							if (diff_ang <= ANG_EDGE) {
 								ang_soft = (max_dist / ANG_EDGE) * diff_ang / max_dist;
 								ang_soft = min(1.0, ang_soft);
 							}
-							
+
 							float wall_soft = 1.0;
 							// ray started in occluder; was not deep in it
 							if (inside == 1) {
@@ -129,11 +131,11 @@ void fragment() {
 								float wall_soft = indepth / wall_edge;
 								wall_soft = 1.0 - wall_soft;
 								wall_soft = min(1.0, wall_soft * 2.0);
-								
+
 								// extra light on wall
-								col_accum += light_col[l].rgb * light_energy[l] * fade * wall_soft;
+								col_accum += light_col[l] * light_energy[l] * fade * wall_soft;
 							}
-							
+
 							// special case:
 							// light is at most soft_limit pixels away from occluders
 							// fade in hard shadow
@@ -145,18 +147,18 @@ void fragment() {
 									float hard_blend = temp_l_d / (soft_limit - hard_limit);
 									hard_blend = 1.0 - hard_blend;
 									float counter_soft = (1.0 - soft) * hard_blend;
-									col_accum += light_col[l].rgb * light_energy[l] * fade * (soft + counter_soft);
+									col_accum += light_col[l] * light_energy[l] * fade * (soft + counter_soft);
 								} else {
-									col_accum += light_col[l].rgb * light_energy[l] * fade * ang_soft;
+									col_accum += light_col[l] * light_energy[l] * fade * ang_soft;
 								}
 							// default:
 							// Light is soft_limit or more pixels away from occluders
 							// soft shadow
 							} else {
 								soft = min(soft, ang_soft);
-								col_accum += light_col[l].rgb * light_energy[l] * fade * soft;
+								col_accum += light_col[l] * light_energy[l] * fade * soft;
 							}
-							
+
 							// ready, out
 							break;
 						}
@@ -165,7 +167,7 @@ void fragment() {
 						vec2 cur_at = at + work_dist * dir;
 						float d = texture_sdf(cur_at);
 						float d_orig = d;
-						
+
 						// Each camera change alters the Signed Distance Field.
 						// That's why the angles jitter a bit.
 						// To compensate, we take an average of the surrounding area.
@@ -183,7 +185,7 @@ void fragment() {
 						d = d + d_u_1 + d_d_1 + d_l_1 + d_r_1;
 						d = d + d_u_2 + d_d_2 + d_l_2 + d_r_2;
 						d /= 9.0;
-						
+
 						// To have light on the walls (i.e. on the occluders),
 						// we need to follow the path of a ray through the occluders:
 						// ray is in occluder
@@ -214,9 +216,9 @@ void fragment() {
 								indepth = wall_edge - d;
 							}
 						}
-						
+
 						soft = min(soft, HARDNESS * d / work_dist);
-						
+
 						// The remaining distance between beam and light
 						// is smaller than the SDF value of one of the two
 						// and can therefore be skipped
@@ -239,5 +241,5 @@ void fragment() {
 	// blend_mode is blend_mul,
 	// so target pixel is multiplied by COLOR
 	// (you can also change the blend_mode to blend_add)
-	COLOR = vec4(col_accum, 1.0);
+	COLOR = col_accum;
 }

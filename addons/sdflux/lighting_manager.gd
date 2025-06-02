@@ -77,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	canvas.material.set_shader_parameter("light_ang", light_ang)
 	canvas.material.set_shader_parameter("light_fan_ang", light_fan_ang)
 	canvas.material.set_shader_parameter("light_energy", light_energy)
+	canvas.material.set_shader_parameter("ambient_modulate", canvas.color)
 	
 	# The camera is not changed in this demo,
 	# but if someone wants to mess around with the camera,
