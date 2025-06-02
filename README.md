@@ -18,8 +18,8 @@ Using advanced SDF-based ray marching techniques, SDFuse delivers high-quality l
 
 # 📦 Installation
 
-1. [Download Latest Release](https://github.com/bitbrain/sdfuse/releases/latest)
-2. Unpack the `addons/sdfuse` folder into your `/addons` folder within the Godot project
+1. [Download Latest Release](https://github.com/bitbrain/sdflux/releases/latest)
+2. Unpack the `addons/sdflux` folder into your `/addons` folder within the Godot project
 
 # 🥰 Credits
 
