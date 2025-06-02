@@ -19,6 +19,7 @@ var light_range: Array[float]
 var light_ang: Array[float]
 var light_fan_ang: Array[float]
 var light_energy: Array[float]
+var light_blend_mode: Array[int]
 var canvas:ColorRect
 var light_data:Dictionary[String, Dictionary] = {}
 
@@ -30,6 +31,7 @@ func _ready() -> void:
 	light_ang.resize(LIGHT_N)
 	light_fan_ang.resize(LIGHT_N)
 	light_energy.resize(LIGHT_N)
+	light_blend_mode.resize(LIGHT_N)
 	
 	
 func register_canvas(canvas:SDFCanvas) -> void:
@@ -68,6 +70,7 @@ func _physics_process(delta: float) -> void:
 		light_ang[i] = lights[i]["ang"]
 		light_fan_ang[i] = lights[i]["fan_ang"]
 		light_energy[i] = lights[i]["energy"]
+		light_blend_mode[i] = lights[i]["blend_mode"]
 	
 	# The shader parameters are passed updated
 	canvas.material.set_shader_parameter("light_n", lights.size())
@@ -77,6 +80,7 @@ func _physics_process(delta: float) -> void:
 	canvas.material.set_shader_parameter("light_ang", light_ang)
 	canvas.material.set_shader_parameter("light_fan_ang", light_fan_ang)
 	canvas.material.set_shader_parameter("light_energy", light_energy)
+	canvas.material.set_shader_parameter("light_blend_mode", light_blend_mode)
 	canvas.material.set_shader_parameter("ambient_modulate", canvas.color)
 	
 	# The camera is not changed in this demo,

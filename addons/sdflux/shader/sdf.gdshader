@@ -33,6 +33,8 @@ uniform float light_ang[LIGHT_N];
 uniform float light_fan_ang[LIGHT_N];
 // Energy multiplier for light intensity
 uniform float light_energy[LIGHT_N];
+// Blend mode for each light
+uniform int light_blend_mode[LIGHT_N];
 
 uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
 
@@ -134,8 +136,15 @@ void fragment() {
 								wall_soft = 1.0 - wall_soft;
 								wall_soft = min(1.0, wall_soft * 2.0);
 
-								// extra light on wall
-								col_accum += light_col[l] * light_energy[l] * fade * wall_soft;
+								// Apply blend mode for extra light on wall
+								vec4 light_contribution = light_col[l] * light_energy[l] * fade * wall_soft;
+								if (light_blend_mode[l] == 0) { // ADD
+									col_accum += light_contribution;
+								} else if (light_blend_mode[l] == 1) { // MIX
+									col_accum = mix(col_accum, light_contribution, light_contribution.a);
+								} else if (light_blend_mode[l] == 2) { // SUB
+									col_accum -= light_contribution;
+								}
 							}
 
 							// special case:
@@ -149,16 +158,37 @@ void fragment() {
 									float hard_blend = temp_l_d / (soft_limit - hard_limit);
 									hard_blend = 1.0 - hard_blend;
 									float counter_soft = (1.0 - soft) * hard_blend;
-									col_accum += light_col[l] * light_energy[l] * fade * (soft + counter_soft);
+									vec4 light_contribution = light_col[l] * light_energy[l] * fade * (soft + counter_soft);
+									if (light_blend_mode[l] == 0) { // ADD
+										col_accum += light_contribution;
+									} else if (light_blend_mode[l] == 1) { // MIX
+										col_accum = mix(col_accum, light_contribution, light_contribution.a);
+									} else if (light_blend_mode[l] == 2) { // SUB
+										col_accum -= light_contribution;
+									}
 								} else {
-									col_accum += light_col[l] * light_energy[l] * fade * ang_soft;
+									vec4 light_contribution = light_col[l] * light_energy[l] * fade * ang_soft;
+									if (light_blend_mode[l] == 0) { // ADD
+										col_accum += light_contribution;
+									} else if (light_blend_mode[l] == 1) { // MIX
+										col_accum = mix(col_accum, light_contribution, light_contribution.a);
+									} else if (light_blend_mode[l] == 2) { // SUB
+										col_accum -= light_contribution;
+									}
 								}
 							// default:
 							// Light is soft_limit or more pixels away from occluders
 							// soft shadow
 							} else {
 								soft = min(soft, ang_soft);
-								col_accum += light_col[l] * light_energy[l] * fade * soft;
+								vec4 light_contribution = light_col[l] * light_energy[l] * fade * soft;
+								if (light_blend_mode[l] == 0) { // ADD
+									col_accum += light_contribution;
+								} else if (light_blend_mode[l] == 1) { // MIX
+									col_accum = mix(col_accum, light_contribution, light_contribution.a);
+								} else if (light_blend_mode[l] == 2) { // SUB
+									col_accum -= light_contribution;
+								}
 							}
 
 							// ready, out

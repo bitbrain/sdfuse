@@ -1,6 +1,11 @@
 @tool
 class_name SDFLight extends Node2D
 
+enum BlendMode {
+	ADD,
+	MIX,
+	SUB,
+}
 
 @export var range:int = 500:
 	set(v):
@@ -22,6 +27,10 @@ class_name SDFLight extends Node2D
 	set(v):
 		_data["energy"] = v
 		energy = v
+@export var blend_mode:BlendMode = BlendMode.ADD:
+	set(v):
+		_data["blend_mode"] = v
+		blend_mode = v
 
 
 var _data = {}
@@ -35,6 +44,7 @@ func _ready() -> void:
 	_data["ang"] = angle
 	_data["fan_ang"] = fan_angle
 	_data["energy"] = energy
+	_data["blend_mode"] = blend_mode
 
 
 func _enter_tree() -> void:
