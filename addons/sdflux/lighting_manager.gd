@@ -61,6 +61,9 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	var lights = light_data.values()
+	
+	if light_pos.is_empty():
+		return
 		
 	# The current states of the lights are entered into the parameter arrays
 	for i in range(lights.size()):

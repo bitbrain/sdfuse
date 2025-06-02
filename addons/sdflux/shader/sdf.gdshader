@@ -141,7 +141,7 @@ void fragment() {
 								if (light_blend_mode[l] == 0) { // ADD
 									col_accum += light_contribution;
 								} else if (light_blend_mode[l] == 1) { // MIX
-									col_accum = mix(col_accum, light_contribution, light_contribution.a);
+									col_accum = col_accum + light_contribution - col_accum * light_contribution;
 								} else if (light_blend_mode[l] == 2) { // SUB
 									col_accum -= light_contribution;
 								}
@@ -162,7 +162,7 @@ void fragment() {
 									if (light_blend_mode[l] == 0) { // ADD
 										col_accum += light_contribution;
 									} else if (light_blend_mode[l] == 1) { // MIX
-										col_accum = mix(col_accum, light_contribution, light_contribution.a);
+										col_accum = col_accum + light_contribution - col_accum * light_contribution;
 									} else if (light_blend_mode[l] == 2) { // SUB
 										col_accum -= light_contribution;
 									}
@@ -171,7 +171,7 @@ void fragment() {
 									if (light_blend_mode[l] == 0) { // ADD
 										col_accum += light_contribution;
 									} else if (light_blend_mode[l] == 1) { // MIX
-										col_accum = mix(col_accum, light_contribution, light_contribution.a);
+										col_accum = col_accum + light_contribution - col_accum * light_contribution;
 									} else if (light_blend_mode[l] == 2) { // SUB
 										col_accum -= light_contribution;
 									}
@@ -185,7 +185,7 @@ void fragment() {
 								if (light_blend_mode[l] == 0) { // ADD
 									col_accum += light_contribution;
 								} else if (light_blend_mode[l] == 1) { // MIX
-									col_accum = mix(col_accum, light_contribution, light_contribution.a);
+									col_accum = col_accum + light_contribution - col_accum * light_contribution;
 								} else if (light_blend_mode[l] == 2) { // SUB
 									col_accum -= light_contribution;
 								}

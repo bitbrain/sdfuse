@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://bod6mmhujswrq"]
+
+[ext_resource type="Texture2D" uid="uid://bmi7i02f3xddm" path="res://icon.svg" id="1_kxfx5"]
+[ext_resource type="Texture2D" uid="uid://dcb80tows6xjq" path="res://test/assets/light.png" id="2_dioyk"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_57w0h"]
+polygon = PackedVector2Array(-47, -16, -41, -8.5, -40, 27, -35, 35, -28, 39.5, -17, 42.5, -7.5, 45, 3, 45, 14, 43, 24, 40.5, 33, 36, 39.5, 30, 41, 20.5, 41, -9.5, 46, -17, 38, -27.5, 30.5, -23, 21.5, -29.5, 22, -39.5, 10, -44, 6, -35.5, -4.5, -35.5, -10, -44.5, -21.5, -39.5, -21.5, -29.5, -29.5, -23.5, -38, -27)
+
+[node name="NativeScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+anchor_mode = 0
+ignore_rotation = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.267278, 0.299866, 0.369901, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(642, 358)
+scale = Vector2(2, 2)
+texture = ExtResource("1_kxfx5")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_57w0h")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.0352941, 0.0705882, 0.160784, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(388, 495)
+color = Color(0.878431, 0.756863, 0.756863, 1)
+shadow_enabled = true
+texture = ExtResource("2_dioyk")
+texture_scale = 3.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(714, 598)
+color = Color(0.878431, 0.756863, 0.756863, 1)
+energy = 2.0
+blend_mode = 1
+shadow_enabled = true
+texture = ExtResource("2_dioyk")
+texture_scale = 0.5
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(822, 596)
+color = Color(0.878431, 0.756863, 0.756863, 1)
+energy = 2.0
+blend_mode = 2
+shadow_enabled = true
+texture = ExtResource("2_dioyk")
+texture_scale = 0.5
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(531, 212)
+color = Color(0.862745, 0, 0.0901961, 1)
+texture = ExtResource("2_dioyk")
