@@ -1,5 +1,5 @@
 shader_type canvas_item;
-render_mode unshaded, blend_mul;
+render_mode unshaded;
 
 const int LIGHT_N = 100;
 const int STEP_MAX = 32;
@@ -33,6 +33,8 @@ uniform float light_ang[LIGHT_N];
 uniform float light_fan_ang[LIGHT_N];
 // Energy multiplier for light intensity
 uniform float light_energy[LIGHT_N];
+
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
 
 // Camera zoom and angle
 uniform float zoom;
@@ -238,8 +240,9 @@ void fragment() {
 
 	} // while
 
-	// blend_mode is blend_mul,
-	// so target pixel is multiplied by COLOR
-	// (you can also change the blend_mode to blend_add)
-	COLOR = col_accum;
+	// Manual blending with screen pixel
+	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 blended_rgba = screen_color.rgba * col_accum.rgba;
+
+	COLOR = blended_rgba;
 }

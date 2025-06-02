@@ -69,6 +69,6 @@ metadata/_custom_type_script = "uid://chr7dmd76qumo"
 material = SubResource("ShaderMaterial_q4iis")
 offset_right = 1280.0
 offset_bottom = 722.0
-color = Color(0.439216, 0.439216, 0.439216, 1)
+color = Color(0.0352941, 0.0352941, 0.101961, 1)
 script = ExtResource("4_wkftn")
 metadata/_custom_type_script = "uid://bbu172faruw1k"
