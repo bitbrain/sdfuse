@@ -38,11 +38,11 @@ func _ready() -> void:
 
 
 func _enter_tree() -> void:
-	self._id = SDFuseLightingManager.register_light(_data)
+	self._id = SDFluxLightingManager.register_light(_data)
 
 
 func _exit_tree() -> void:
-	SDFuseLightingManager.unregister_light(_id)
+	SDFluxLightingManager.unregister_light(_id)
 
 
 func _physics_process(delta: float) -> void:

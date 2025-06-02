@@ -12,8 +12,8 @@ func _ready() -> void:
 
 
 func _enter_tree() -> void:
-	SDFuseLightingManager.register_canvas(self)
+	SDFluxLightingManager.register_canvas(self)
 	
 	
 func _exit_tree() -> void:
-	SDFuseLightingManager.unregister_canvas(self)
+	SDFluxLightingManager.unregister_canvas(self)

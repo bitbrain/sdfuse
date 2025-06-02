@@ -6,7 +6,7 @@
 
 **SDFlux is an addon for Godot Engine 4.x that enables infinite 2D lighting with realistic shadows using Signed Distance Fields (SDF).** Create stunning lighting effects with soft and hard shadows, directional light fans, and camera-aware rendering that scales beautifully with your game world.
 
-Using advanced SDF-based ray marching techniques, SDFuse delivers high-quality lighting that responds dynamically to your scene geometry, making it perfect for atmospheric 2D games, top-down adventures, and any project requiring sophisticated lighting effects.
+Using advanced SDF-based ray marching techniques, SDFlux delivers high-quality lighting that responds dynamically to your scene geometry, making it perfect for atmospheric 2D games, top-down adventures, and any project requiring sophisticated lighting effects.
 
 # 🔦 Features
 

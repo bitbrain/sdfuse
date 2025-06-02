@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bo5rx2smllobe" path="res://Level.gd" id="1_chyor"]
 [ext_resource type="Texture2D" uid="uid://bmi7i02f3xddm" path="res://icon.svg" id="2_cb1ak"]
-[ext_resource type="Script" uid="uid://chr7dmd76qumo" path="res://addons/sdfuse/sdf_light.gd" id="3_2nifc"]
-[ext_resource type="Shader" uid="uid://cvrgwv8sabite" path="res://addons/sdfuse/shader/sdf.gdshader" id="4_q4iis"]
-[ext_resource type="Script" uid="uid://bbu172faruw1k" path="res://addons/sdfuse/sdf_canvas.gd" id="4_wkftn"]
+[ext_resource type="Script" uid="uid://chr7dmd76qumo" path="res://addons/sdflux/sdf_light.gd" id="3_2nifc"]
+[ext_resource type="Shader" uid="uid://cvrgwv8sabite" path="res://addons/sdflux/shader/sdf.gdshader" id="4_q4iis"]
+[ext_resource type="Script" uid="uid://bbu172faruw1k" path="res://addons/sdflux/sdf_canvas.gd" id="4_wkftn"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fcgs"]
 polygon = PackedVector2Array(-47, -16, -41, -8.5, -40, 27, -35, 35, -28, 39.5, -17, 42.5, -7.5, 45, 3, 45, 14, 43, 24, 40.5, 33, 36, 39.5, 30, 41, 20.5, 41, -9.5, 46, -17, 38, -27.5, 30.5, -23, 21.5, -29.5, 22, -39.5, 10, -44, 6, -35.5, -4.5, -35.5, -10, -44.5, -21.5, -39.5, -21.5, -29.5, -29.5, -23.5, -38, -27)

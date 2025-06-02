@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="SDFuse"
+config/name="SDFlux"
 config/description="🔦 Infinite 2D lights with SDF for Godot Engine. "
 run/main_scene="res://Level.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SDFuseLightingManager="*res://addons/sdfuse/lighting_manager.gd"
+SDFluxLightingManager="*res://addons/sdflux/lighting_manager.gd"
 
 [display]
 
@@ -28,7 +28,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sdfuse/plugin.cfg")
+enabled=PackedStringArray("res://addons/sdflux/plugin.cfg")
 
 [global_group]
 
